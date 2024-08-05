@@ -8,6 +8,12 @@
     align-items: center;
 }
 
+.pageTitle {
+    color: var(--twitter-color);
+    text-align: center;
+    font-size: 30px;
+}
+
 .profilePage {
     flex: 0.4;
     border-right: 1px solid var(--twitter-background);
@@ -17,11 +23,4 @@
 
 .profilePage::-webkit-scrollbar {
     display: none;
-}
-
-
-.pageTitle {
-    color: var(--twitter-color);
-    text-align: center;
-    font-size: 30px;
 }

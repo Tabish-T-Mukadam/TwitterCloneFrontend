@@ -1,16 +1,17 @@
-/*import React from 'react'
+import React from 'react';
 import '../Page.css'
-import { useUserAuth } from "../../context/UserAuthContext"
-import MainProfile from './MainProfile/MainProfile'
+import MainPage from './MainPage/MainPage';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 function Profile() {
+    const {user}=useAuthState(auth);
 
-    const { user } = useUserAuth();
     return (
         <div className='profilePage'>
-            <MainProfile user={user} />
+            <MainPage user={user}/>
         </div>
-    )
-}
+    );
+};
 
-export default Profile   */
+export default Profile;   

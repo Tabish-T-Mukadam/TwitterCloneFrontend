@@ -3,13 +3,20 @@ import { Avatar, Button } from '@mui/material';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import axios from 'axios';
 import "./TweetBox.css"
+import useLoggedInUser from '../../../hooks/useLoggedInUser'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 function TweetBox() {
   const [post, setPost] = useState('');
   const [imageURL, setImageURL] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState('');
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [loggedInUser] = useLoggedInUser();
   //console.log(loggedInUser)
+  const [user]=useAuthState(auth);
+  const email = user?.email;
 
   const userProfilePic = loggedInUser[0]?.profileImage?loggedInUser[0]?.profileImage: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
   
@@ -34,12 +41,31 @@ function TweetBox() {
 
   const handleTweet = (e) => {
     e.preventDefault();
-    if (imageURL){
-    const userPost = {
-      post: post,
-      photo: imageURL
+    if (user.providerData[0].providerId==='password'){
+       fetch('http://localhost:5000/loggedInUser?email=${email}')
+       .then(res=>res.json())
+       .then(data => {
+          setName(data[0]?.name)
+          setUsername(data[0]?.username)
+        })
     }
-    console.log(userPost);
+    else{
+      setName(user?.displayName)
+      setUsername(email?.split('@')[0])
+    }
+    //if (user?providerData[0]?.provider)
+    if (name){
+    const userPost = {
+      profilePhoto:userProfilePic,
+      post: post,
+      photo: imageURL,
+      username:username,
+      name:name,
+      email:email
+    }
+    //console.log(userPost);
+    setPost('');
+    setImageURL('');
     fetch('http://localhost:5000/post',{
       method:"POST",
       headers:{
@@ -58,11 +84,13 @@ function TweetBox() {
     <div className="tweetBox">
       <form onSubmit={handleTweet}>
         <div className="tweetBox_input">
-          <Avatar src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" />
+        <Avatar src={loggedInUser[0]?.profileImage?loggedInUser[0]?.profileImage: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} />
           <input
             type="text"
             placeholder="What's happening?"
             onChange={(e) => setPost(e.target.value)}
+            value={post}
+            required
           />
         </div>
 

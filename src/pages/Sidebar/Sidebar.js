@@ -14,6 +14,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DoneIcon from '@mui/icons-material/Done';
 import { Avatar, Button, Icon, IconButton, ListItemIcon, Menu, MenuItem, Divider} from '@mui/material';
 import CustomeLink from './CustomeLink';
+import useLoggedInUser from '../../hooks/useLoggedInUser'
+
 
 const Sidebar = ({handleLogout, user}) => {
 const [anchorEl, setAnchorEl] = useState(null);
@@ -30,6 +32,8 @@ const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
   }
+
+  const result = user[0]?.email?.split('@')[0];
 
   return (
     <div className='sidebar'>
@@ -63,10 +67,14 @@ const [anchorEl, setAnchorEl] = useState(null);
         Tweet</Button>  
 
     <div className="Profile_info">
-        <Avatar src={userProfilePic}></Avatar>
+        <Avatar src={userProfilePic} />
         <div className='user_info'>
-            <h4>Tabish T Mukadam</h4>
-            <h5>@tabish46</h5>
+            <h4>
+            {
+            loggedInUser[0]?.name ? loggedInUser[0]?.name: user && user[0]?.displayName
+            }
+            </h4>
+            <h5>@{result}</h5>
         </div>
         <IconButton size='small' 
         sx={{ nl: 2}}
@@ -79,14 +87,18 @@ const [anchorEl, setAnchorEl] = useState(null);
             </IconButton>
             <Menu id='basic-menu' anchorEl={anchorEl} open={openMenu} onClick={handleClose} onclose={handleClose}>
                 <MenuItem className='Profile_info1'>
-                <Avatar src='https://pbs.twimg.com/media/EWAJB4WUcAAje8s.png'></Avatar>
+                  <Avatar src={userProfilePic} />
                 <div className='user_info subUser_info'>
                 <div>
-                <h4>Tabish T Mukadam</h4>
-                <h5>@tabish46</h5>
+                <h4>
+                {
+                loggedInUser[0]?.name ? loggedInUser[0]?.name: user && user[0]?.displayName
+                }
+                </h4>
+                <h5>@{result}</h5>
                 </div>
                 <ListItemIcon className='done-icon'><DoneIcon/></ListItemIcon>
-        </div>
+                </div>
                 
                 </MenuItem>
                 <Divider />

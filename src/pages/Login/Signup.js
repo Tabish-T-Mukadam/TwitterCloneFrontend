@@ -47,7 +47,7 @@ const Signup = () => {
         email:email,
       };
       console.log(user);
-      axios.post('http://localhost:5000/register',user)
+      axios.post('http://localhost:5002/register',user)
       
     } 
 

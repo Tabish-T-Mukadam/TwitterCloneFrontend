@@ -38,7 +38,7 @@ const [anchorEl, setAnchorEl] = useState(null);
   return (
     <div className='sidebar'>
     <TwitterIcon  className='sidebar_twitterIcon'/>
-    <CustomeLink to='/home/feed'>
+    <CustomeLink to='/home/'>
     <SidebarOptions active Icon={HomeIcon} text='Home'/>
     </CustomeLink>
     <CustomeLink to='/home/explore'>
@@ -103,7 +103,7 @@ const [anchorEl, setAnchorEl] = useState(null);
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleClose}>Add an existing account</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout @tabish46</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout @{loggedInUser[0]?.name ? loggedInUser[0]?.name: user && user[0]?.displayName}</MenuItem>
             </Menu>
         </div>    
     </div>

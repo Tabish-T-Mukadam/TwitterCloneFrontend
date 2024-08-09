@@ -8,12 +8,12 @@ import Post from './Post/Post';
 const Feed = () => {
     const [posts, setPosts]=useState([]);
     useEffect(()=>{
-        fetch('http://localhost:5000/post')
+        fetch('http://localhost:5002/post')
         .then(res => res.json())
         .then(data => {
             setPosts(data)
         })
-    },[posts])
+    },[])
     return (
     <div className='feed'>
       <div className='feed_header'>

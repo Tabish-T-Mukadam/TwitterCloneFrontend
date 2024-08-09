@@ -21,9 +21,12 @@ const Home = () => {
   return (
     <div className='app'>
     <Sidebar handleLogout={handleLogout} user={user}/>
-    <TweetBox/>
+    <div style={{width:'60%'}}>
+    {/* <TweetBox/> */}
     <Outlet/>
+    </div>
     <Widgets/>
+   
     </div>
   )
 }

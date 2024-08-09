@@ -8,13 +8,13 @@ const useLoggedInUser = () => {
     //console.log(email)
     const [loggedInUser, setloggedInUser]=useState({});
     useEffect(()=>{
-        fetch('http://localhost:5000/loggedInUser?email=${email}')
+        fetch(`http://localhost:5002/loggedInUser?email=${email}`)
         .then(res=>res.json())
         .then(data => {
             //console.log(data)
             setloggedInUser(data)
         })
-    },[email, loggedInUser])
+    },[email])
 
     return [loggedInUser, setloggedInUser];
 

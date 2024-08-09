@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { IconButton, Modal, TextField } from '@mui/material';
-import Box from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close'
-import { ChevronRightIcon } from '@mui/icons-material/ChevronRight';
+import { IconButton, Modal, TextField,Box,Button } from '@mui/material';
+// import Box from '@mui/material';
+// import CloseIcon from '@mui/icons-material/Close'
+import { Close,ChevronRight } from '@mui/icons-material';
 import './EditProfile.css'
 import axios from 'axios';
 
@@ -78,7 +78,7 @@ export default function EditProfile ({user, loggedInUser}) {
     dob,
   }
     if(editedInfo){
-      await axios.patch('http://localhost:5000/userUpdates/${user?.email}', editedInfo)
+      await axios.patch(`http://localhost:5002/userUpdates/${loggedInUser[0]?.email}`, editedInfo)
       setOpen(false)       
     }
   }
@@ -94,7 +94,7 @@ export default function EditProfile ({user, loggedInUser}) {
       >
         <Box sx={style} className='modal'>
           <div className='header'>
-            <IconButton onClick={()=>{setOpen(false)}}> <CloseIcon /> </IconButton>
+            <IconButton onClick={()=>{setOpen(false)}}> <Close /> </IconButton>
             <h2 className='header-title'>Edit Profile</h2>
             <button className='save-btn' onClick={HandleSave}>Save</button>
           </div>
@@ -124,7 +124,7 @@ export default function EditProfile ({user, loggedInUser}) {
             }
              <div className='last-btn'>
               <h2>Switch to professional </h2>
-              <ChevronRightIcon />
+              <ChevronRight />
             </div>
           </div>
 

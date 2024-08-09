@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
 import LockResetIcon from '@mui/icons-material/LockReset';
@@ -16,15 +16,16 @@ const MainPage = ({ user }) => {
     const [loggedInUser] = useLoggedInUser();
     const [isLoading, setIsLoading] = useState('');
     const [posts, setPosts] = useState([]);
-
+    console.log(loggedInUser[0]);
+    let userData = loggedInUser && loggedInUser.length > 0 ? loggedInUser[0]: null
     useEffect(()=>{
-        fetch('http://localhost:5000/userPost?email=${user?.email}')
+        fetch(`http://localhost:5002/userPost?email=${userData ? userData.email : null}`)
         .then(res => res.json())
         .then(data => {
             setPosts(data)
         })
-    },[posts, user?.email])
-    const username = user?.email?.split('@')[0];
+    },[])
+    const username = userData?.username
 
     const handleUploadCoverImage = (e)=>{
         setIsLoading(true);
@@ -42,7 +43,7 @@ const MainPage = ({ user }) => {
             }
             setIsLoading(false);
             if (url){
-                axios.patch('http://localhost:5000/userUpdates/${user?.email}', userCoverImage)            
+                axios.patch('http://localhost:5002/userUpdates/${user?.email}', userCoverImage)            
             } 
             })
     }
@@ -62,7 +63,7 @@ const MainPage = ({ user }) => {
              }
             setIsLoading(false);
             if (url){
-                axios.patch('http://localhost:5000/userUpdates/${user?.email}', userProfileImage)            
+                axios.patch('http://localhost:5002/userUpdates/${user?.email}', userProfileImage)            
             } 
             })
     }
@@ -121,7 +122,7 @@ const MainPage = ({ user }) => {
                                         </h3>
                                         <p className='usernameSection'>@{username}</p>
                                     </div>
-                                    <EditProfile user={user} loggedInUser={loggedInUser} />
+                                    <EditProfile user={userData} loggedInUser={loggedInUser} />
                                 </div>    
                                     <div className='infoContainer'>
                                         {loggedInUser[0]?.bio ? loggedInUser[0]?.bio : ''}   

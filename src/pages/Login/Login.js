@@ -23,8 +23,8 @@ const Login = () => {
     
     if (user||googleuser) {
     navigate('/')  
-    console.log(user)
-    console.log(googleuser)
+    // console.log(user)
+    // console.log(googleuser)
     }
 
     if (error) {

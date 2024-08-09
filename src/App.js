@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login/Login';
@@ -23,24 +23,24 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute> <Home /></ProtectedRoute>} />
-            <Route index element={<Feed />} />
-            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>}>
-            <Route path="feed" element={<Feed />} />
-          
-            <Route path="explore" element={<Explore />} />
-            <Route path="notifications" element={<Notifications />} />
-            <Route path="messages" element={<Messages />} />
-            <Route path="bookmarks" element={<Bookmarks />} />
-            <Route path="lists" element={<Lists />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="more" element={<More />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/page-loading" element={<PageLoading/>} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>}>
+          <Route path="" element={<Feed />} />
+          <Route path="explore" element={<Explore />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="bookmarks" element={<Bookmarks />} />
+          <Route path="lists" element={<Lists />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="more" element={<More />} />
+        </Route>
+        
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/page-loading" element={<PageLoading />} />
+      </Routes>
       </BrowserRouter>
     </div>
   );
